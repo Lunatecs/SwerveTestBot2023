@@ -60,6 +60,9 @@ public class SwerveModule {
          * idk what we need to do for falcons
          * that is a thursday problem
          * - sujit
+         * 
+         * I think its allg, but im not sure
+         * - future sujit
          */
 
         turnController.enableContinuousInput(-Math.PI, Math.PI);
@@ -74,6 +77,8 @@ public class SwerveModule {
     public SwerveModuleState getState() {
         // this code is adapted from the wpilib example code to work with falcons
         // will need to check if it actually works
+
+        // i used cancoder.getAbsolutePosition() and it may not be allg - sujit
         return new SwerveModuleState(driveMotor.getSelectedSensorVelocity() * TICKS_PER_ROT, new Rotation2d(canCoder.getAbsolutePosition()));
     }
 
