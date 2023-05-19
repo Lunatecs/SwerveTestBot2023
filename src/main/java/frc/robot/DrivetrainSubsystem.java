@@ -25,10 +25,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final Translation2d backLeftLocation = new Translation2d(-0.381, 0.381);
   private final Translation2d backRightLocation = new Translation2d(-0.381, -0.381);
 
-  private final SwerveModule frontLeft = new SwerveModule(DrivetrainConstants.LEFT_FRONT_DRIVE, DrivetrainConstants.LEFT_FRONT_TURN);
-  private final SwerveModule frontRight = new SwerveModule(DrivetrainConstants.RIGHT_FRONT_DRIVE, DrivetrainConstants.RIGHT_FRONT_TURN);
-  private final SwerveModule backLeft = new SwerveModule(DrivetrainConstants.LEFT_BACK_DRIVE, DrivetrainConstants.LEFT_BACK_TURN);
-  private final SwerveModule backRight = new SwerveModule(DrivetrainConstants.RIGHT_BACK_DRIVE, DrivetrainConstants.RIGHT_BACK_TURN);
+  private final SwerveModule frontLeft = new SwerveModule(DrivetrainConstants.LEFT_FRONT_DRIVE, DrivetrainConstants.LEFT_FRONT_TURN, DrivetrainConstants.LEFT_FRONT_ENC);
+  private final SwerveModule frontRight = new SwerveModule(DrivetrainConstants.RIGHT_FRONT_DRIVE, DrivetrainConstants.RIGHT_FRONT_TURN, DrivetrainConstants.RIGHT_FRONT_ENC);
+  private final SwerveModule backLeft = new SwerveModule(DrivetrainConstants.LEFT_BACK_DRIVE, DrivetrainConstants.LEFT_BACK_TURN, DrivetrainConstants.LEFT_BACK_ENC);
+  private final SwerveModule backRight = new SwerveModule(DrivetrainConstants.RIGHT_BACK_DRIVE, DrivetrainConstants.RIGHT_BACK_TURN, DrivetrainConstants.RIGHT_BACK_DRIVE);
 
   private final  WPI_PigeonIMU pigeon = new WPI_PigeonIMU(DrivetrainConstants.PIGEON);
 

@@ -9,12 +9,20 @@ public class Constants {
     public final static class DrivetrainConstants {
         public static final int LEFT_FRONT_DRIVE = 0;//TODO: Update CAN values of drive & turning motors
         public static final int LEFT_FRONT_TURN = 0;
+        public static final int LEFT_FRONT_ENC = 0;
+
         public static final int RIGHT_FRONT_DRIVE = 0;
         public static final int RIGHT_FRONT_TURN = 0;
+        public static final int RIGHT_FRONT_ENC = 0;
+
         public static final int LEFT_BACK_DRIVE = 0;
         public static final int LEFT_BACK_TURN = 0;
+        public static final int LEFT_BACK_ENC = 0;
+
         public static final int RIGHT_BACK_DRIVE = 0;
         public static final int RIGHT_BACK_TURN = 0;
+        public static final int RIGHT_BACK_ENC = 0;
+
         public static final int PIGEON = 0;
     }
 }
