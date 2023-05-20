@@ -79,6 +79,7 @@ public class SwerveModule {
         // will need to check if it actually works
 
         // i used cancoder.getAbsolutePosition() and it may not be allg - sujit
+        //it might be good???
         return new SwerveModuleState(driveMotor.getSelectedSensorVelocity() * TICKS_PER_ROT, new Rotation2d(canCoder.getAbsolutePosition()));
     }
 
