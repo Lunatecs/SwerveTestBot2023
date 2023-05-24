@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.Constants.DrivetrainConstants;
+import frc.robot.Constants.JoystickConstants;
 
 public class RobotContainer {
-  private final Joystick driver = new Joystick(0); 
+  private final Joystick driver = new Joystick(JoystickConstants.DRIVER_USB); 
 
-  private final DrivetrainSubsystem drive = new DrivetrainSubsystem();
+  private final DrivetrainSubsystem drive = DrivetrainSubsystem.getInstance();
 
   private final SlewRateLimiter xSpeedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter ySpeedLimiter = new SlewRateLimiter(3);
@@ -26,18 +28,34 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-    drive.setDefaultCommand(new RepeatCommand(new RunCommand(
+
+    
+    drive.setDefaultCommand(new RunCommand(
       () -> drive.drive(
           xSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(0), 0.1)) * DrivetrainSubsystem.maxSpeed,
           ySpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(1), 0.1)) * DrivetrainSubsystem.maxSpeed,
           rotSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(4), 0.1)) * DrivetrainSubsystem.maxAngularSpeed,
           true
       )
-      , drive)));
-
+      , drive));
+    
   }
 
+  public DrivetrainSubsystem getDrive() {
+    return drive;
+  }
 
+  public void driveWithJoystick(boolean fieldRelative) {
+
+    double xSpeed = driver.getRawAxis(0) * DrivetrainSubsystem.maxSpeed;
+
+    double ySpeed = driver.getRawAxis(1) * DrivetrainSubsystem.maxSpeed;
+
+    double rotSpeed = driver.getRawAxis(4) * DrivetrainSubsystem.maxAngularSpeed;
+
+    drive.drive(xSpeed, ySpeed, rotSpeed, fieldRelative);
+
+  }
 
   
 

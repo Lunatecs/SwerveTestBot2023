@@ -7,23 +7,23 @@ package frc.robot;
 /** Add your docs here. */
 public class Constants {
     public final static class DrivetrainConstants {
-        public static final int LEFT_FRONT_DRIVE = 0;//TODO: Update CAN values of drive & turning motors
-        public static final int LEFT_FRONT_TURN = 0;
-        public static final int LEFT_FRONT_ENC = 0;
+        public static final int LEFT_FRONT_DRIVE = 9;//TODO: Update CAN values of drive & turning motors
+        public static final int LEFT_FRONT_TURN = 8;
+        public static final int LEFT_FRONT_ENC = 2;
 
-        public static final int RIGHT_FRONT_DRIVE = 0;
-        public static final int RIGHT_FRONT_TURN = 0;
-        public static final int RIGHT_FRONT_ENC = 0;
+        public static final int RIGHT_FRONT_DRIVE = 10;
+        public static final int RIGHT_FRONT_TURN = 13;
+        public static final int RIGHT_FRONT_ENC = 4;
 
-        public static final int LEFT_BACK_DRIVE = 0;
-        public static final int LEFT_BACK_TURN = 0;
-        public static final int LEFT_BACK_ENC = 0;
+        public static final int LEFT_BACK_DRIVE = 7;
+        public static final int LEFT_BACK_TURN = 11;
+        public static final int LEFT_BACK_ENC = 5;
 
-        public static final int RIGHT_BACK_DRIVE = 0;
-        public static final int RIGHT_BACK_TURN = 0;
-        public static final int RIGHT_BACK_ENC = 0;
+        public static final int RIGHT_BACK_DRIVE = 6;
+        public static final int RIGHT_BACK_TURN = 12;
+        public static final int RIGHT_BACK_ENC = 3;
 
-        public static final int PIGEON = 0;
+        public static final int PIGEON = 1;
     }
 
     public final static class JoystickConstants{

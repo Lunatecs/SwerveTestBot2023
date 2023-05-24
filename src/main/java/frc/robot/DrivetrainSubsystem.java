@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.security.PrivateKey;
+
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
@@ -12,11 +14,14 @@ import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
 
 public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
+  private static DrivetrainSubsystem drive = null;
+
   public static final double maxSpeed = 3.0; // 3 meters per second
   public static final double maxAngularSpeed = Math.PI; // 1/2 rotation per second
 
@@ -25,10 +30,10 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final Translation2d backLeftLocation = new Translation2d(-0.381, 0.381);
   private final Translation2d backRightLocation = new Translation2d(-0.381, -0.381);
 
-  private final SwerveModule frontLeft = new SwerveModule(DrivetrainConstants.LEFT_FRONT_DRIVE, DrivetrainConstants.LEFT_FRONT_TURN, DrivetrainConstants.LEFT_FRONT_ENC);
-  private final SwerveModule frontRight = new SwerveModule(DrivetrainConstants.RIGHT_FRONT_DRIVE, DrivetrainConstants.RIGHT_FRONT_TURN, DrivetrainConstants.RIGHT_FRONT_ENC);
-  private final SwerveModule backLeft = new SwerveModule(DrivetrainConstants.LEFT_BACK_DRIVE, DrivetrainConstants.LEFT_BACK_TURN, DrivetrainConstants.LEFT_BACK_ENC);
-  private final SwerveModule backRight = new SwerveModule(DrivetrainConstants.RIGHT_BACK_DRIVE, DrivetrainConstants.RIGHT_BACK_TURN, DrivetrainConstants.RIGHT_BACK_DRIVE);
+  private final SwerveModule frontLeft = new SwerveModule(DrivetrainConstants.LEFT_FRONT_DRIVE, DrivetrainConstants.LEFT_FRONT_TURN, DrivetrainConstants.LEFT_FRONT_ENC,"LF");
+  private final SwerveModule frontRight = new SwerveModule(DrivetrainConstants.RIGHT_FRONT_DRIVE, DrivetrainConstants.RIGHT_FRONT_TURN, DrivetrainConstants.RIGHT_FRONT_ENC,"RF");
+  private final SwerveModule backLeft = new SwerveModule(DrivetrainConstants.LEFT_BACK_DRIVE, DrivetrainConstants.LEFT_BACK_TURN, DrivetrainConstants.LEFT_BACK_ENC,"LB");
+  private final SwerveModule backRight = new SwerveModule(DrivetrainConstants.RIGHT_BACK_DRIVE, DrivetrainConstants.RIGHT_BACK_TURN, DrivetrainConstants.RIGHT_BACK_ENC,"RB");
 
   private final  WPI_PigeonIMU pigeon = new WPI_PigeonIMU(DrivetrainConstants.PIGEON);
 
@@ -47,8 +52,15 @@ public class DrivetrainSubsystem extends SubsystemBase {
           backRight.getPosition()
         });
 
-  public DrivetrainSubsystem() {
+  private DrivetrainSubsystem() {
     pigeon.reset();
+  }
+
+  public static DrivetrainSubsystem getInstance() {
+    if (drive == null)
+      drive = new DrivetrainSubsystem();
+
+    return drive;
   }
 
   public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
@@ -78,5 +90,17 @@ public class DrivetrainSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+   /* SmartDashboard.putNumber("FL Drive", frontLeft.driveMotorOutput);
+    SmartDashboard.putNumber("FL Turn", frontLeft.turnMotorOutput);
+
+    SmartDashboard.putNumber("FR Drive", frontRight.driveMotorOutput);
+    SmartDashboard.putNumber("FR Turn", frontRight.turnMotorOutput);
+
+    SmartDashboard.putNumber("BL Drive", backLeft.driveMotorOutput);
+    SmartDashboard.putNumber("BL Turn", backLeft.turnMotorOutput);
+
+    SmartDashboard.putNumber("BR Drive", backRight.driveMotorOutput);
+    SmartDashboard.putNumber("BR Turn", backRight.turnMotorOutput);
+    */
   }
 }
