@@ -32,9 +32,9 @@ public class RobotContainer {
     
     drive.setDefaultCommand(new RunCommand(
       () -> drive.drive(
-          xSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(0), 0.1)) * DrivetrainSubsystem.maxSpeed,
-          ySpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(1), 0.1)) * DrivetrainSubsystem.maxSpeed,
-          rotSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(4), 0.1)) * DrivetrainSubsystem.maxAngularSpeed,
+          xSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.LEFT_X_AXIS), 0.1)) * DrivetrainSubsystem.maxSpeed,
+          ySpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.LEFT_Y_AXIS), 0.1)) * DrivetrainSubsystem.maxSpeed,
+          rotSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.RIGHT_X_AXIS), 0.1)) * DrivetrainSubsystem.maxAngularSpeed,
           true
       )
       , drive));

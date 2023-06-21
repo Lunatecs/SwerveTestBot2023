@@ -9,14 +9,17 @@ import java.security.PrivateKey;
 import com.ctre.phoenix.sensors.PigeonIMU;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DrivetrainConstants;
+
 
 public class DrivetrainSubsystem extends SubsystemBase {
   /** Creates a new DrivetrainSubsystem. */
@@ -36,6 +39,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveModule backRight = new SwerveModule(DrivetrainConstants.RIGHT_BACK_DRIVE, DrivetrainConstants.RIGHT_BACK_TURN, DrivetrainConstants.RIGHT_BACK_ENC,"RB");
 
   private final  WPI_PigeonIMU pigeon = new WPI_PigeonIMU(DrivetrainConstants.PIGEON);
+
+  public static final double FL_HOME = 191.128;
+  public static final double FR_HOME = 340.666;
+  public static final double BL_HOME = 141.758;
+  public static final double BR_HOME = 306.102;
 
   private final SwerveDriveKinematics kinematics =
       new SwerveDriveKinematics(
@@ -101,6 +109,19 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
     SmartDashboard.putNumber("BR Drive", backRight.driveMotorOutput);
     SmartDashboard.putNumber("BR Turn", backRight.turnMotorOutput);
+    */
+
+    /* 
+    SmartDashboard.putNumber("FL Abs Position", frontLeft.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
+    SmartDashboard.putNumber("BL Abs Position", backLeft.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
+    SmartDashboard.putNumber("FR Abs Position", frontRight.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
+    SmartDashboard.putNumber("BR Abs Position", backRight.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
+    */
+    /* 
+    SmartDashboard.putNumber("FL Module Angle", frontLeft.getAngleDeg());
+    SmartDashboard.putNumber("FR Module Angle", frontRight.getAngleDeg());
+    SmartDashboard.putNumber("BL Module Angle", backLeft.getAngleDeg());
+    SmartDashboard.putNumber("BR Module Angle", backRight.getAngleDeg());
     */
   }
 }
