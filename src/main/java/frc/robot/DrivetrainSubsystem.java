@@ -97,6 +97,11 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    this.frontLeft.periodic();
+    this.frontRight.periodic();
+    this.backLeft.periodic();
+    this.backRight.periodic();
+
     // This method will be called once per scheduler run
    /* SmartDashboard.putNumber("FL Drive", frontLeft.driveMotorOutput);
     SmartDashboard.putNumber("FL Turn", frontLeft.turnMotorOutput);
