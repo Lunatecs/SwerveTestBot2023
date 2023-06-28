@@ -54,12 +54,12 @@ public class SwerveModule {
     // private final ProfiledPIDController turnController =
     //     new ProfiledPIDController(0.5, 0, 0, new TrapezoidProfile.Constraints(moduleMaxAngularVelocity, moduleMaxAngularAcceleration));
 
-    private PIDController turnController = new PIDController(1, 0.0, 0.0);
+    private PIDController turnController = new PIDController(0.8, 0.0, 0.0);
 
     private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(1, 3);
     private final SimpleMotorFeedforward turnFeedforward = new SimpleMotorFeedforward(1, 0.5);
 
-    public SwerveModule(int driveMotorID, int turnMotorID, int canCoderID, String name) {
+    public SwerveModule(int driveMotorID, int turnMotorID, int canCoderID, String name, boolean isReversed) {
         driveMotor = new TalonFX(driveMotorID);
         turnMotor = new TalonFX(turnMotorID);
         canCoder = new CANCoder(canCoderID);
@@ -71,6 +71,14 @@ public class SwerveModule {
 
         driveMotor.setNeutralMode(NeutralMode.Brake);
         turnMotor.setNeutralMode(NeutralMode.Brake);
+
+        driveMotor.setInverted(false);
+        turnMotor.setInverted(false);
+
+        if (isReversed == true) {
+            driveMotor.setInverted(true);
+        }
+
 
         // turnMotor.configIntegratedSensorAbsoluteRange(AbsoluteSensorRange.Unsigned_0_to_360);
         // canCoder.configAbsoluteSensorRange(AbsoluteSensorRange.Unsigned_0_to_360);
@@ -143,18 +151,18 @@ public class SwerveModule {
 
         // funi optimizaiton
         //SwerveModuleState state = SwerveModuleState.optimize(desiredState, new Rotation2d(turnMotor.getSelectedSensorPosition() * turnRot2Rad));
-        SwerveModuleState state = SwerveModuleState.optimize(desiredState, new Rotation2d(
-                Math.toRadians(canCoder.getAbsolutePosition())
-            ));
+        //SwerveModuleState state = SwerveModuleState.optimize(desiredState, new Rotation2d(
+                //Math.toRadians(canCoder.getAbsolutePosition())
+           // ));
+           SwerveModuleState state = desiredState;
 
         //final double driveOutput = driveController.calculate(driveMotor.getSelectedSensorVelocity(), state.speedMetersPerSecond);
         //final double driveFF = driveFeedforward.calculate(state.speedMetersPerSecond);
-        
         double turnEncoderPosition = (Math.toRadians(canCoder.getAbsolutePosition()) - Math.PI) * -1;
         double turnOutput = turnController.calculate(turnEncoderPosition, state.angle.getRadians());
         //final double turnFF = turnFeedforward.calculate(turnController.getSetpoint().velocity);
 
-        // driveMotorOutput = state.speedMetersPerSecond / DrivetrainSubsystem.maxSpeed;//13.0; //+ driveFF;
+        driveMotorOutput = state.speedMetersPerSecond / DrivetrainSubsystem.maxSpeed;//13.0; //+ driveFF;
         // turnMotorOutput = turnOutput;//13.0; //+ turnFF;
 
         SmartDashboard.putNumber(name + " Turn Output", turnOutput);
@@ -169,7 +177,7 @@ public class SwerveModule {
 
         // honestly, im just going off of wpilib
         //driveMotor.set(ControlMode.Current, 5.0);// driveoutput + driveff
-        //driveMotor.set(ControlMode.PercentOutput, driveMotorOutput);
+        driveMotor.set(ControlMode.PercentOutput, driveMotorOutput);
         turnMotor.set(ControlMode.PercentOutput, turnOutput);
         //turnMotor.set(ControlMode.Current, turnutput + turnFF);
 

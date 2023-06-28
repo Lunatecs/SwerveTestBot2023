@@ -23,6 +23,8 @@ public class RobotContainer {
   private final SlewRateLimiter ySpeedLimiter = new SlewRateLimiter(3);
   private final SlewRateLimiter rotSpeedLimiter = new SlewRateLimiter(3);
 
+
+
   public RobotContainer() {
     configureBindings();
   }
@@ -32,9 +34,9 @@ public class RobotContainer {
     
     drive.setDefaultCommand(new RunCommand(
       () -> drive.drive(
-          xSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.LEFT_X_AXIS), 0.1)) * DrivetrainSubsystem.maxSpeed,
-          ySpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.LEFT_Y_AXIS), 0.1)) * DrivetrainSubsystem.maxSpeed,
-          rotSpeedLimiter.calculate(MathUtil.applyDeadband(driver.getRawAxis(JoystickConstants.RIGHT_X_AXIS), 0.1)) * DrivetrainSubsystem.maxAngularSpeed,
+          driver.getRawAxis(JoystickConstants.LEFT_X_AXIS),
+          driver.getRawAxis(JoystickConstants.LEFT_Y_AXIS),
+          driver.getRawAxis(JoystickConstants.RIGHT_X_AXIS),
           true
       )
       , drive));
@@ -47,11 +49,11 @@ public class RobotContainer {
 
   public void driveWithJoystick(boolean fieldRelative) {
 
-    double xSpeed = driver.getRawAxis(0) * DrivetrainSubsystem.maxSpeed;
+    double xSpeed = driver.getRawAxis(0);
 
-    double ySpeed = driver.getRawAxis(1) * DrivetrainSubsystem.maxSpeed;
+    double ySpeed = driver.getRawAxis(1);
 
-    double rotSpeed = driver.getRawAxis(4) * DrivetrainSubsystem.maxAngularSpeed;
+    double rotSpeed = driver.getRawAxis(4);
 
     drive.drive(xSpeed, ySpeed, rotSpeed, fieldRelative);
 
