@@ -19,11 +19,6 @@ public class RobotContainer {
 
   private final DrivetrainSubsystem drive = DrivetrainSubsystem.getInstance();
 
-  private final SlewRateLimiter xSpeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter ySpeedLimiter = new SlewRateLimiter(3);
-  private final SlewRateLimiter rotSpeedLimiter = new SlewRateLimiter(3);
-
-
 
   public RobotContainer() {
     configureBindings();

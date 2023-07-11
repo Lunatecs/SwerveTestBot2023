@@ -22,16 +22,22 @@ import frc.robot.Constants.DrivetrainConstants;
 
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  /** Creates a new DrivetrainSubsystem. */
   private static DrivetrainSubsystem drive = null;
 
   public static final double maxSpeed = 3.0; // 3 meters per second
-  public static final double maxAngularSpeed = Math.PI; // 1/2 rotation per second
-
-  private final Translation2d frontLeftLocation = new Translation2d(0.381, 0.381);
+  public static final double maxAngularSpeed = Math.PI;
+ //This is the "right translation2d values"
+ /* private final Translation2d frontLeftLocation = new Translation2d(0.381, 0.381);
   private final Translation2d frontRightLocation = new Translation2d(0.381, -0.381);
   private final Translation2d backLeftLocation = new Translation2d(-0.381, 0.381);
-  private final Translation2d backRightLocation = new Translation2d(-0.381, -0.381);
+  private final Translation2d backRightLocation = new Translation2d(-0.381, -0.381); */
+
+  //These are the "working" values
+  private final Translation2d frontLeftLocation = new Translation2d(-0.381, 0.381);
+  private final Translation2d frontRightLocation = new Translation2d(-0.381, -0.381);
+  private final Translation2d backLeftLocation = new Translation2d(0.381, 0.381);
+  private final Translation2d backRightLocation = new Translation2d(0.381, -0.381);
+  
 
   private final SwerveModule frontLeft = new SwerveModule(DrivetrainConstants.LEFT_FRONT_DRIVE, DrivetrainConstants.LEFT_FRONT_TURN, DrivetrainConstants.LEFT_FRONT_ENC,"LF", false);
   private final SwerveModule frontRight = new SwerveModule(DrivetrainConstants.RIGHT_FRONT_DRIVE, DrivetrainConstants.RIGHT_FRONT_TURN, DrivetrainConstants.RIGHT_FRONT_ENC,"RF", false);
@@ -101,32 +107,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
     this.frontRight.periodic();
     this.backLeft.periodic();
     this.backRight.periodic();
+    SmartDashboard.putNumber("Pigeon Value", pigeon.getYaw());
 
-    // This method will be called once per scheduler run
-   /* SmartDashboard.putNumber("FL Drive", frontLeft.driveMotorOutput);
-    SmartDashboard.putNumber("FL Turn", frontLeft.turnMotorOutput);
-
-    SmartDashboard.putNumber("FR Drive", frontRight.driveMotorOutput);
-    SmartDashboard.putNumber("FR Turn", frontRight.turnMotorOutput);
-
-    SmartDashboard.putNumber("BL Drive", backLeft.driveMotorOutput);
-    SmartDashboard.putNumber("BL Turn", backLeft.turnMotorOutput);
-
-    SmartDashboard.putNumber("BR Drive", backRight.driveMotorOutput);
-    SmartDashboard.putNumber("BR Turn", backRight.turnMotorOutput);
-    */
-
-    /* 
-    SmartDashboard.putNumber("FL Abs Position", frontLeft.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
-    SmartDashboard.putNumber("BL Abs Position", backLeft.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
-    SmartDashboard.putNumber("FR Abs Position", frontRight.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
-    SmartDashboard.putNumber("BR Abs Position", backRight.getAbsoluteEncoderRad() * (180 / Math.PI) % 360);
-    */
-    /* 
-    SmartDashboard.putNumber("FL Module Angle", frontLeft.getAngleDeg());
-    SmartDashboard.putNumber("FR Module Angle", frontRight.getAngleDeg());
-    SmartDashboard.putNumber("BL Module Angle", backLeft.getAngleDeg());
-    SmartDashboard.putNumber("BR Module Angle", backRight.getAngleDeg());
-    */
+    
   }
 }
