@@ -58,7 +58,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private final SwerveDriveOdometry odometry =
     new SwerveDriveOdometry(
         kinematics,
-        pigeon.getRotation2d(),
+        Rotation2d.fromDegrees(pigeon.getYaw()),
         new SwerveModulePosition[] {
           frontLeft.getPosition(),
           frontRight.getPosition(),
@@ -81,7 +81,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
     var swerveModuleStates =
         kinematics.toSwerveModuleStates(
             fieldRelative
-                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, pigeon.getRotation2d())
+                ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, Rotation2d.fromDegrees(pigeon.getYaw()))
                 : new ChassisSpeeds(xSpeed, ySpeed, rot));
     SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, maxSpeed);
     frontLeft.setDesiredState(swerveModuleStates[0]);
@@ -92,7 +92,7 @@ public class DrivetrainSubsystem extends SubsystemBase {
 
   public void updateOdometry() {
     odometry.update(
-        pigeon.getRotation2d(),
+      Rotation2d.fromDegrees(pigeon.getYaw()),
         new SwerveModulePosition[] {
           frontLeft.getPosition(),
           frontRight.getPosition(),
